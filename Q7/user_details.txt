@@ -1,0 +1,10 @@
+/* User Id ; User Name; Age; Followers; image/Bio */
+
+1:David Tim:25:New York:500:src/Task7/profilePic/1.jpg:Personal Details haru
+2:Tim Cook:30:Los Angeles:1000:src/Task7/profilePic/1.jpg:User2 details
+3:Michael Johnson:28:Chicago:750:src/Task7/profilePic/1.jpg:User3 details
+4:Emily Davis:22:San Francisco:300:src/Task7/profilePic/1.jpg:User4 details
+5:David Wilson:35:Houston:2000:src/Task7/profilePic/1.jpg:User5 details
+6:Sarah Thompson:27:Miami:900:src/Task7/profilePic/1.jpg:User6 details
+7:Christopher Lee:32:Boston:1500:src/Task7/profilePic/1.jpg:User7 details
+8:Olivia Martin:29:Seattle:400:src/Task7/profilePic/1.jpg:User8 details
