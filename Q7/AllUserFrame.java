@@ -1,5 +1,7 @@
 package Q7;
 
+import Q7.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,12 +20,14 @@ public class AllUserFrame extends JFrame {
     private Map<Integer, Integer> likesMap;
     private Map<Integer, Integer> messagesMap;
     private Map<Integer, Integer> commentsMap;
+
+    private JTextField searchField;
     private JPanel userPanel;
 
     public AllUserFrame() {
         setTitle("All Users");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(1000, 800));
 
         userMap = new HashMap<>();
         connectionMap = new HashMap<>();
@@ -31,23 +35,52 @@ public class AllUserFrame extends JFrame {
         messagesMap = new HashMap<>();
         commentsMap = new HashMap<>();
 
-        // Create the main panel
+// Create the main panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
-        // Create user panel
+// Create search panel
+        JPanel searchPanel = createSearchPanel();
+        mainPanel.add(searchPanel, BorderLayout.NORTH);
+
+// Create user panel
         userPanel = createUserPanel();
         mainPanel.add(userPanel, BorderLayout.CENTER);
 
-        // Load user details from file and create user components
+// Load user details from file and create user components
         loadUserDetails();
         loadConnectionDetails();
 
-        // Add the main panel to the frame
+// Add the main panel to the frame
         getContentPane().add(mainPanel);
 
         pack();
         setLocationRelativeTo(null); // Center the frame on the screen
+    }
+
+    private JPanel createSearchPanel() {
+        JPanel searchPanel = new JPanel(new BorderLayout());
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        searchField = new JTextField(20);
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchTerm = searchField.getText();
+                if (!searchTerm.isEmpty()) {
+// searchUser(searchTerm);
+                }
+            }
+        });
+
+        JPanel inputPanel = new JPanel();
+        inputPanel.add(searchField);
+        inputPanel.add(searchButton);
+
+        searchPanel.add(inputPanel, BorderLayout.CENTER);
+
+        return searchPanel;
     }
 
     private JPanel createUserPanel() {
@@ -58,7 +91,7 @@ public class AllUserFrame extends JFrame {
 
     private void loadUserDetails() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/Task7/user_details.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("Q7/user_details.txt"));
 
             String line;
             int gridy = 0;
@@ -92,7 +125,7 @@ public class AllUserFrame extends JFrame {
 
     private void loadConnectionDetails() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/Task7/connection_details.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("Q7/connection_details.txt"));
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -104,7 +137,7 @@ public class AllUserFrame extends JFrame {
                     int numLikes = Integer.parseInt(connectionDetails[3]);
                     int numComments = Integer.parseInt(connectionDetails[4]);
 
-                    // Add the connection from userId to connectedTo
+// Add the connection from userId to connectedTo
                     if (connectionMap.containsKey(userId)) {
                         List<Integer> userConnections = connectionMap.get(userId);
                         userConnections.add(connectedTo);
@@ -115,7 +148,7 @@ public class AllUserFrame extends JFrame {
                         connectionMap.put(userId, userConnections);
                     }
 
-                    // Add the connection from connectedTo to userId
+// Add the connection from connectedTo to userId
                     if (connectionMap.containsKey(connectedTo)) {
                         List<Integer> userConnections = connectionMap.get(connectedTo);
                         userConnections.add(userId);
@@ -181,6 +214,7 @@ public class AllUserFrame extends JFrame {
         return cardPanel;
     }
 
+
     private void showUserListDialog(List<User> users, String searchTerm) {
         JDialog dialog = new JDialog(this, "Matching Users", true);
         dialog.setLayout(new BorderLayout());
@@ -238,10 +272,9 @@ public class AllUserFrame extends JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            AllUserFrame frame = new AllUserFrame(); // this is the main frame that contains all the users
+            Q7.AllUserFrame frame = new Q7.AllUserFrame(); // this is the main frame that contains all the users
             frame.setVisible(true);
         });
     }

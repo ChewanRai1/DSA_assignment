@@ -14,7 +14,7 @@ public class ThreeBTest {
         int vertices = 5;
         int edges = 8;
 
-        ThreeII bellmanFord = new BellmanFord(vertices, edges);
+        BellmanFord bellmanFord = new BellmanFord(vertices, edges);
         bellmanFord.addEdge(0, 1, 1);
         bellmanFord.addEdge(0, 2, 4);
         bellmanFord.addEdge(1, 2, 3);

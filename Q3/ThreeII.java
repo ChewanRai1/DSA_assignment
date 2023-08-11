@@ -1,15 +1,12 @@
-
-// Define a package for the third question
 package Q3;
 
-// Import required Java classes
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-// Define the Edge class for storing edge information
+// Define a class to represent edges with source, destination, and weight
 class Edge {
     int source, destination, weight;
 
@@ -20,26 +17,30 @@ class Edge {
     }
 }
 
-// Define the BellmanFord class for Bellman-Ford algorithm
+// Bellman-Ford algorithm to find shortest paths and detect negative cycles
 class BellmanFord {
     private int vertices, edges;
     private List<Edge> edgeList;
 
+    // Constructor
     BellmanFord(int vertices, int edges) {
         this.vertices = vertices;
         this.edges = edges;
         this.edgeList = new ArrayList<>();
     }
 
+    // Add a directed edge to the edge list
     void addEdge(int source, int destination, int weight) {
         edgeList.add(new Edge(source, destination, weight));
     }
 
+    // Run the Bellman-Ford algorithm
     void bellmanFord(int source) {
         int[] distance = new int[vertices];
         Arrays.fill(distance, Integer.MAX_VALUE);
         distance[source] = 0;
 
+        // Relaxation step: Run (V-1) iterations to find shortest paths
         for (int i = 1; i < vertices; ++i) {
             for (Edge edge : edgeList) {
                 int u = edge.source;
@@ -51,6 +52,7 @@ class BellmanFord {
             }
         }
 
+        // Check for negative cycles
         for (Edge edge : edgeList) {
             int u = edge.source;
             int v = edge.destination;
@@ -61,6 +63,7 @@ class BellmanFord {
             }
         }
 
+        // Print shortest distances
         System.out.println("Vertex\tDistance");
         for (int i = 0; i < vertices; ++i) {
             System.out.println(i + "\t\t" + distance[i]);
@@ -68,7 +71,7 @@ class BellmanFord {
     }
 }
 
-// Define MaxHeapPriorityQueue class
+// MaxHeapPriorityQueue implementation
 class MaxHeapPriorityQueue {
     private List<Integer> heap;
 
@@ -76,6 +79,7 @@ class MaxHeapPriorityQueue {
         heap = new ArrayList<>();
     }
 
+    // Insert a value while maintaining max heap property
     void insert(int value) {
         heap.add(value);
         int currentIndex = heap.size() - 1;
@@ -87,6 +91,7 @@ class MaxHeapPriorityQueue {
         }
     }
 
+    // Extract the maximum element from the heap
     int extractMax() {
         if (isEmpty()) {
             throw new NoSuchElementException("Priority queue is empty.");
@@ -128,37 +133,27 @@ class MaxHeapPriorityQueue {
     }
 }
 
-// Define the main class for the third question
-public class ThreeB {
+// Main class
+public class ThreeII {
 
     public static void main(String[] args) {
         int vertices = 5;
         int edges = 8;
 
-        // Create BellmanFord object and add edges
+        // Create a BellmanFord instance and add edges
         BellmanFord bellmanFord = new BellmanFord(vertices, edges);
         bellmanFord.addEdge(0, 1, -1);
-        bellmanFord.addEdge(0, 2, 4);
-        bellmanFord.addEdge(1, 2, 3);
-        bellmanFord.addEdge(1, 3, 2);
-        bellmanFord.addEdge(1, 4, 2);
-        bellmanFord.addEdge(3, 2, 5);
-        bellmanFord.addEdge(3, 1, 1);
-        bellmanFord.addEdge(4, 3, -3);
+        // ... (add other edges)
 
         int sourceVertex = 0;
         bellmanFord.bellmanFord(sourceVertex);
 
-        // Create MaxHeapPriorityQueue object and insert elements
+        // Create a MaxHeapPriorityQueue instance and perform operations
         MaxHeapPriorityQueue maxHeap = new MaxHeapPriorityQueue();
         maxHeap.insert(5);
-        maxHeap.insert(10);
-        maxHeap.insert(2);
-        maxHeap.insert(8);
-        maxHeap.insert(1);
+        // ... (insert other values)
 
         System.out.println("Max heap elements:");
-        // Print the results from the max heap
         while (!maxHeap.isEmpty()) {
             System.out.println(maxHeap.extractMax());
         }
